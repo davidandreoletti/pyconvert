@@ -12,9 +12,12 @@ jobCreationFailureLogger = logging.getLogger('runtime')
 jobCreationFailureLogger.setLevel(logging.DEBUG)
 
 # Create formatters
-runtimeFormatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-jobCreationSuccessFormatter = logging.Formatter('JOB CREATION SUCCESS:%(message)s')
-jobCreationFailureFormatter = logging.Formatter('JOB CREATION FAILURE:%(message)s')
+runtimeFormatterStr = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+runtimeFormatter = logging.Formatter(runtimeFormatterStr)
+jobCreationSuccessFormatterStr = 'JOB CREATION SUCCESS:%(message)s'
+jobCreationSuccessFormatter = logging.Formatter(jobCreationSuccessFormatterStr)
+jobCreationFailureFormatterStr = 'JOB CREATION FAILURE:%(message)s'
+jobCreationFailureFormatter = logging.Formatter(jobCreationFailureFormatterStr)
 
 # Create handlers
 runtimeFileHandler = logging.FileHandler()

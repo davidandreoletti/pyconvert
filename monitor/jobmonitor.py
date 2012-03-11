@@ -1,11 +1,10 @@
-################################################################################
 class JobMonitor:
     """
-        Monitores jobs
-        """
-    
+    Monitores jobs
+    """
+
     def __init__(self):
         """
-            Constructor
-            """
-    pass
+        Constructor
+        """
+        pass

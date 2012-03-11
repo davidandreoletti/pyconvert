@@ -16,25 +16,26 @@ class JobExecutionStrategy(object):
             execute pre jobs first if any
             then execute jobs then execute post jobs if any
         @param: job Job execution strategy
-        @return Returns the Job.JobStatus.COMPLETED if all job successfully completed. Otherwise Job.JobStatus.FAILED
+        @return Returns the Job.JobStatus.COMPLETED if all job successfully
+                completed. Otherwise Job.JobStatus.FAILED
         """
         job.willExecute()
         currentJobStatus = Job.JobStatus.COMPLETED
         if job:
             if (job.preJobsCount() > 0):
                 job.willExecutePreJobs()
-                currentJobStatus=self.executeList(jobs=job.getPreJobs())
+                currentJobStatus = self.executeList(jobs=job.getPreJobs())
                 job.didExecutePreJobs()
 
             job.willExecuteJobs()
-            currentJobStatus=self.executeList(jobs=job.getJobs())
+            currentJobStatus = self.executeList(jobs=job.getJobs())
             job.didExecuteJobs()
 
             if (job.postJobsCount() > 0):
                 job.willExecutePostJobs()
-                currentJobStatus=self.executeList(jobs=job.getPostJobs())
+                currentJobStatus = self.executeList(jobs=job.getPostJobs())
                 job.didExecutePostJobs()
-            
+
             job.setStatus(newStatus=currentJobStatus)
         job.didExecute()
 
@@ -42,7 +43,8 @@ class JobExecutionStrategy(object):
         """
         Executes this job list
         @param: jobs A list of jobs
-        @return Returns the Job.JobStatus.COMPLETED if all job successfully completed. Otherwise Job.JobStatus.FAILED
+        @return Returns the Job.JobStatus.COMPLETED if all job
+                successfully completed. Otherwise Job.JobStatus.FAILED
             """
         hasCurrentJobExecutedSuccessfully = True
         if jobs:
@@ -50,8 +52,7 @@ class JobExecutionStrategy(object):
                 job.execute()
                 if job.getStatus() != Job.JobStatus.COMPLETED:
                     hasCurrentJobExecutedSuccessfully = False
-        
-        
+
         if hasCurrentJobExecutedSuccessfully:
             return Job.JobStatus.COMPLETED
         else:

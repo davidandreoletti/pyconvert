@@ -1,24 +1,31 @@
 from util import util
 
+
 class Job(object):
     """
-        A job
-        """
-    JobStatus = util.enum('FAILED', 'COMPLETED', 'INPROGRESS', 'CREATED', 'UNKNOWN')
+    A job
     """
-        Job statuses
-        """
+
+    JobStatus = util.enum('FAILED',
+                          'COMPLETED',
+                          'INPROGRESS',
+                          'CREATED',
+                          'UNKNOWN')
+    """
+    Job statuses
+    """
 
     def __init__(self, jobExecutionStrategy=None):
         """
-            Constructor
-            Job created with status JobStatus.CREATED
-            """
+        Constructor
+        Job created with status JobStatus.CREATED
+        """
         if not jobExecutionStrategy:
-            self._jobExecutionStrategy = JobExecutionStrategy.JobExecutionStrategy()
+            jobExecutionStrategy = JobExecutionStrategy.JobExecutionStrategy()
+            self._jobExecutionStrategy = jobExecutionStrategy
         else:
             self._jobExecutionStrategy = jobExecutionStrategy
-        
+
         self.setStatus(Job.JobStatus.CREATED)
         self._preJobs = list()
         self._jobs = list()
@@ -42,27 +49,26 @@ class Job(object):
         """
         pass
 
-            
     def willExecutePreJobs(self):
         """
         Indicates that executePreJobs(...) will be executed.
         This implementation is empty
         """
         pass
-    
+
     def didExecutePreJobs(self):
         """
-            Indicates that executePreJobs(...) did execute.
-            """
+        Indicates that executePreJobs(...) did execute.
+        """
         pass
-            
+
     def willExecutePostJobs(self):
         """
         Indicates that executePostJobs(...) will be executed.
         This implementation is empty
         """
         pass
-    
+
     def didExecutePostJobs(self):
         """
         Indicates that executePostJobs(...) did execute.
@@ -76,7 +82,7 @@ class Job(object):
         This implementation is empty
         """
         pass
-    
+
     def didExecuteJobs(self):
         """
         Indicates that executeJobs(...) did execute.
@@ -106,14 +112,14 @@ class Job(object):
 
     def jobsCount(self):
         """
-            Counts  number of jobs (pre and post jobs not included)
-            """
+        Counts  number of jobs (pre and post jobs not included)
+        """
         return len(self._jobs)
 
     def postJobsCount(self):
         """
-            Counts  number of post jobs
-            """
+        Counts  number of post jobs
+        """
         return len(self._postJobs)
 
     def getJobs(self):
@@ -124,85 +130,88 @@ class Job(object):
 
     def getPreJobs(self):
         """
-            Returns the list of pre jobs
-            """
+        Returns the list of pre jobs
+        """
         return self._preJobs
 
     def getPostJobs(self):
         """
-            Returns the list of post jobs
-            """
+        Returns the list of post jobs
+        """
         return self._postJobs
 
-    def addJob(self,job=None):
+    def addJob(self, job=None):
         """
-            Adds a job to jobs
-            @param: job  A job to append to the list of job.
-            """
+        Adds a job to jobs
+        @param: job  A job to append to the list of job.
+        """
         if job:
             self._jobs.append(job)
-    
-    def addJobs(self,jobs=None):
+
+    def addJobs(self, jobs=None):
         """
-            Appends a list of jobs (i.e list of Job instances) to the current job list
-            @param: job  A list
-            """
+        Appends a list of jobs (i.e list of Job instances) to
+        the current job list
+        @param: job  A list
+        """
         if jobs:
             self._jobs.extend(jobs)
 
-    def addPreJob(self,job=None):
+    def addPreJob(self, job=None):
         """
-            Adds a job to pre jobs list
-            @param: job  A job to append to the list of job.
-            """
+        Adds a job to pre jobs list
+        @param: job  A job to append to the list of job.
+        """
         if job:
             self._preJobs.append(job)
-    
-    def addPreJobs(self,jobs=None):
+
+    def addPreJobs(self, jobs=None):
         """
-            Appends a list of jobs (i.e list of Job instances) to the current pre Jobs list
-            @param: job  A list
-            """
+        Appends a list of jobs (i.e list of Job instances) to
+        the current pre Jobs list
+        @param: job  A list
+        """
         if jobs:
             self._preJobs.extend(jobs)
 
-    def addPostJob(self,job=None):
+    def addPostJob(self, job=None):
         """
-            Adds a job to post jobs list
-            @param: job  A job to append to the list of job.
-            """
+        Adds a job to post jobs list
+        @param: job  A job to append to the list of job.
+        """
         if job:
             self._postJobs.append(job)
-    
-    def addPostJobs(self,jobs=None):
+
+    def addPostJobs(self, jobs=None):
         """
-            Appends a list of jobs (i.e list of Job instances) to the current post Jobs list
-            @param: job  A list
-            """
+        Appends a list of jobs (i.e list of Job instances) to
+        the current post Jobs list
+        @param: job  A list
+        """
         if jobs:
             self._postJobs.extend(jobs)
 
     def getDescription(self):
         """
-            Returns this job's description
-            """
+        Returns this job's description
+        """
         return ""
-
 
     def rollback(self):
         """
-        Rollbacks this job's job. Eg: if a file was moved from location A to B, then file at location B must be moved back at location A
+        Rollbacks this job's job. Eg: if a file was moved from location A
+        to B, then file at location B must be moved back at location A
         This implementation is empty
         """
         pass
 
     def commit(self):
         """
-        Commit this job. 
+        Commit this job.
         This implementation is empty
-        WARNING: It will not be possible to rollback the job after this method call.
+        WARNING: It will not be possible to rollback the job after
+        this method call.
         """
         pass
 
-#import pdb; pdb.set_trace()
 from jobexecutionstrategy import JobExecutionStrategy

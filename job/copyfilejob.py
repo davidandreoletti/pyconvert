@@ -6,16 +6,17 @@ from constant.constant import Constant
 
 loggerCLRunnerRuntime = Constant.getRuntimeLogger()
 
+
 class CopyFileJob(Job):
     """
-        A job to copy a file
-        """
+    A job to copy a file
+    """
 
-    def __init__(self,sourceFileName=None,destinationFileName=None):
+    def __init__(self, sourceFileName=None, destinationFileName=None):
         """
-            Constructor
-            @param: filename File to delete
-            """
+        Constructor
+        @param: filename File to delete
+        """
         super(CopyFileJob, self).__init__()
         self._sourceFileName = sourceFileName
         self._destinationFileName = destinationFileName
@@ -31,11 +32,12 @@ class CopyFileJob(Job):
         """
         Indicates that execute(...) will be executed
         """
-        loggerCLRunnerRuntime.info("Backing up: "+str(self._sourceFileName) + " to "+str(self._destinationFileName))
+        loggerCLRunnerRuntime.info("Backing up: " + str(self._sourceFileName) +
+                                   " to " + str(self._destinationFileName))
 
     def didExecute(self):
         """
         Indicates that execute(...) was executed
         """
-        loggerCLRunnerRuntime.info("Finished: Status "+( "COMPLETED" if (self._status == Job.JobStatus.COMPLETED) else "FAILED"))
-
+        loggerCLRunnerRuntime.info("Finished: Status " + ("COMPLETED" if
+        (self._status == Job.JobStatus.COMPLETED) else "FAILED"))
