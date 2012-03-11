@@ -2,7 +2,7 @@ from job.job import Job
 from jobexecutionstrategy import JobExecutionStrategy
 
 
-class JobExecutionStrategyOnSuccessOnly(JobExecutionStrategy.JobExecutionStrategy):
+class JobExecutionStrategyOnSuccessOnly(JobExecutionStrategy):
     """
     A job execution strategy where the next job is executed only if
     the previous one executed sucessfully.
