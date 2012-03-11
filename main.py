@@ -57,7 +57,7 @@ def main():
     # Executes jobs
     jobExecutor = JobExecutor()
     jobExecutor.addJobMonitor(jobMonitor)
-    #jobExecutor.execute(masterJob)
+    jobExecutor.execute(masterJob)
 
 #Done
 
