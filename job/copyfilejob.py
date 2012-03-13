@@ -15,7 +15,8 @@ class CopyFileJob(Job):
     def __init__(self, sourceFileName=None, destinationFileName=None):
         """
         Constructor
-        @param: filename File to delete
+        @param: sourceFilename Source file to copy
+        @param: destinationFilename Destination file to copy to
         """
         super(CopyFileJob, self).__init__()
         self._sourceFileName = sourceFileName
@@ -29,15 +30,9 @@ class CopyFileJob(Job):
         self.didExecute()
 
     def willExecute(self):
-        """
-        Indicates that execute(...) will be executed
-        """
         loggerCLRunnerRuntime.info("Backing up: " + str(self._sourceFileName) +
                                    " to " + str(self._destinationFileName))
 
     def didExecute(self):
-        """
-        Indicates that execute(...) was executed
-        """
         loggerCLRunnerRuntime.info("Finished: Status " + ("COMPLETED" if
         (self._status == Job.JobStatus.COMPLETED) else "FAILED"))

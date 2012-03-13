@@ -8,7 +8,7 @@ loggerCLRunnerRuntime = Constant.getRuntimeLogger()
 
 class DeleteFileJob(Job):
     """
-    A job to transcode/convert a media file into another media file
+    A job to delete a file
     """
 
     def __init__(self, filename=None):
@@ -27,14 +27,8 @@ class DeleteFileJob(Job):
         self.didExecute()
 
     def willExecute(self):
-        """
-        Indicates that execute(...) will be executed
-        """
         loggerCLRunnerRuntime.info("Deleting: " + str(self._filename))
 
     def didExecute(self):
-        """
-        Indicates that execute(...) was executed
-        """
         loggerCLRunnerRuntime.info("Finished: Status " + ("COMPLETED"
         if (self._status == Job.JobStatus.COMPLETED) else "FAILED"))

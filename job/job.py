@@ -12,13 +12,20 @@ class Job(object):
                           'CREATED',
                           'UNKNOWN')
     """
-    Job statuses
+    Job statuses:
+    FAILED: job was executed and failed to complete successfully
+    COMPLETED: job was executed and completed successfully
+    INPROGRESS: job was created and is executing but not yet finished
+    CREATED: job was created and not yet executed
+    UNKNOW: job's state is unknown
     """
 
     def __init__(self, jobExecutionStrategy=None):
         """
         Constructor
         Job created with status JobStatus.CREATED
+        @param jobExecutionStrategy A JobExecutionStrategy instance defining
+                                    how the job must be executed
         """
         if not jobExecutionStrategy:
             jobExecutionStrategy = JobExecutionStrategy.JobExecutionStrategy()
@@ -52,7 +59,6 @@ class Job(object):
     def willExecutePreJobs(self):
         """
         Indicates that executePreJobs(...) will be executed.
-        This implementation is empty
         """
         pass
 
@@ -65,28 +71,24 @@ class Job(object):
     def willExecutePostJobs(self):
         """
         Indicates that executePostJobs(...) will be executed.
-        This implementation is empty
         """
         pass
 
     def didExecutePostJobs(self):
         """
         Indicates that executePostJobs(...) did execute.
-        This implementation is empty
         """
         pass
 
     def willExecuteJobs(self):
         """
         Indicates that executeJobs(...) will be executed.
-        This implementation is empty
         """
         pass
 
     def didExecuteJobs(self):
         """
         Indicates that executeJobs(...) did execute.
-        This implementation is empty
         """
         pass
 
@@ -107,36 +109,42 @@ class Job(object):
     def preJobsCount(self):
         """
         Counts  number of pre jobs
+        @return Number of pre jobs
         """
         return len(self._preJobs)
 
     def jobsCount(self):
         """
         Counts  number of jobs (pre and post jobs not included)
+        @return Number of jobs
         """
         return len(self._jobs)
 
     def postJobsCount(self):
         """
         Counts  number of post jobs
+        @return Number of post jobs
         """
         return len(self._postJobs)
 
     def getJobs(self):
         """
         Returns the list of jobs (pre and post jobs excluded)
+        @return List of jobs
         """
         return self._jobs
 
     def getPreJobs(self):
         """
         Returns the list of pre jobs
+        @return List of pre jobs
         """
         return self._preJobs
 
     def getPostJobs(self):
         """
         Returns the list of post jobs
+        @return List of post jobs
         """
         return self._postJobs
 
@@ -194,6 +202,7 @@ class Job(object):
     def getDescription(self):
         """
         Returns this job's description
+        @return Job's description
         """
         return ""
 
@@ -201,7 +210,6 @@ class Job(object):
         """
         Rollbacks this job's job. Eg: if a file was moved from location A
         to B, then file at location B must be moved back at location A
-        This implementation is empty
         """
         pass
 

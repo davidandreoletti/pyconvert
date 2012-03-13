@@ -5,7 +5,7 @@ from jobexecutionstrategy import JobExecutionStrategy
 class JobExecutionStrategyOnSuccessOnly(JobExecutionStrategy):
     """
     A job execution strategy where the next job is executed only if
-    the previous one executed sucessfully.
+    the previous one was executed sucessfully.
     """
 
     def __init__(self):
@@ -18,9 +18,9 @@ class JobExecutionStrategyOnSuccessOnly(JobExecutionStrategy):
         """
         Executes this job strategy on the job.
         This strategy is:
-        execute pre jobs first if any. If all of pre jobs executed sucessfully
-        then execute jobs. If all jobs executed successfully then execute post
-        jobs if any.
+            execute pre jobs first if any. If all of pre jobs executed sucessfully
+            then execute jobs. If all jobs executed successfully then execute post
+            jobs if any.
         @param: job Job execution strategy
         @return Returns the Job.JobStatus.COMPLETED if all pre post, jobs,
         post jobs successfully completed. Otherwise Job.JobStatus.FAILED

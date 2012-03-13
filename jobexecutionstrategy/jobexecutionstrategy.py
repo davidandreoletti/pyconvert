@@ -1,12 +1,13 @@
 class JobExecutionStrategy(object):
     """
-        Simple job execution strategy. Every job are executed.
-        """
+    Simple job execution strategy. Job are executed sequentially and
+    all of them are executed.
+    """
 
     def __init__(self):
         """
-            Constructor
-            """
+        Constructor
+        """
         pass
 
     def execute(self, job=None):

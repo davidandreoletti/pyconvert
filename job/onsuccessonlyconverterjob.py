@@ -10,6 +10,7 @@ class OnSuccessOnlyConverterJob(Job):
     def __init__(self):
         """
         Constructor
+        Job created with JobExecutionStrategyOnSuccessOnly execution strategy
         """
         super(OnSuccessOnlyConverterJob, self).__init__(
         jobExecutionStrategy=JobExecutionStrategyOnSuccessOnly())

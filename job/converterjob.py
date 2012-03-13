@@ -12,8 +12,9 @@ class ConverterJob(Job):
     def __init__(self, clibuilder=None, clirunner=None):
         """
         Constructor
-        @param: clibuilder CLGenerator instance
-        @param: clirunner CLRunner instance to run cli built with CLGenerator
+        @param: clibuilder CLGenerator instance generating the command line
+        @param: clirunner CLRunner instance to run the command line
+                          built with CLGenerator
         """
         super(ConverterJob, self).__init__()
         self._clibuilder = clibuilder
@@ -33,14 +34,8 @@ class ConverterJob(Job):
             self.didExecute()
 
     def willExecute(self):
-        """
-        Indicates that execute(...) will be executed
-        """
         loggerCLRunnerRuntime.info("Executing:" + str(self._clibuilder.tocl()))
 
     def didExecute(self):
-        """
-        Indicates that execute() was executed
-        """
         loggerCLRunnerRuntime.info("Finished: Status " + ("COMPLETED" if
         (self._status == Job.JobStatus.COMPLETED) else "FAILED"))

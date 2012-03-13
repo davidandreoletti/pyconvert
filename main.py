@@ -19,7 +19,7 @@ from executor.jobexecutor import JobExecutor
 
 def main():
     """
-    Main function
+    Application main function
     Usage: this_script.py -h
     """
     #  Parse CLI parameters

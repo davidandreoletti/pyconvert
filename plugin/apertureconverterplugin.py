@@ -67,8 +67,14 @@ from plugin.converterplugin import ConverterPlugin
 class ApertureConverterPlugin(ConverterPlugin):
 
     SUPPORTED_FILE_EXTENSION = ["avi", "mov", "jpeg", "jpg"]
+    """
+    File extension supported by this plugin
+    """
 
     def __init__(self):
+        """
+        Constructor
+        """
         super(ApertureConverterPlugin, self).__init__()
         pass
 
@@ -84,6 +90,11 @@ class ApertureConverterPlugin(ConverterPlugin):
             return False
 
     def createVideoJob(self, sourceMediaFile=None):
+        """
+        Creates a job to convert a video file to my own storage requirements
+        @param sourceMediaFile Source MediaFile object
+        @return Job instance to convert the video
+        """
         sourceVideoMediaStreams = sourceMediaFile.getVideoStreams()
         sourceAudioMediaStreams = sourceMediaFile.getAudioStreams()
         masterJob = None
@@ -487,7 +498,7 @@ class ApertureConverterPlugin(ConverterPlugin):
 
     def probeImage(self, filename=None):
             """
-            Probes an image
+            Probes an image file
             @param: file Image file to probe
             @return Dictionary. Key "image" contains dictionary of ImageStream objects
             """
@@ -580,6 +591,11 @@ class ApertureConverterPlugin(ConverterPlugin):
             return streamsMediaObjects
 
     def createImageJob(self, sourceMediaFile=None):
+        """
+        Creates a job to convert image file to my own storage requirements
+        @param sourceMediaFile Source MediaFile object
+        @return Job instance to convert the image
+        """
         sourceImageStreams = sourceMediaFile.getImageStreams()
         masterJob = None
         backupDestinationMediaFile = MediaFile()

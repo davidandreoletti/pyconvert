@@ -13,6 +13,7 @@ class JobExecutor:
         """
         Adds a JobMonitor
         @param: JobMonitor A JobMonitor instance
+        @return self
         """
         self._jobMonitor = jobMonitor
         return self

@@ -4,7 +4,8 @@ from os.path import basename
 
 class JobCreator:
     """
-    Create jobs
+    Generic instance to create jobs.
+    Specific job creators must inherit from this class
     """
 
     def __init__(self):

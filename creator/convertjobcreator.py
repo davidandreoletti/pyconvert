@@ -13,7 +13,8 @@ import pdb
 
 class ConvertJobCreator(object):
     """
-    Create ConvertJobs instances
+    Convert Job Creator.
+    Creates ConverterJob instances
     """
 
     def __init__(self):
@@ -28,13 +29,11 @@ class ConvertJobCreator(object):
                                     videoFileExtensions,
                                     imageFileExtensions):
         """
-        Create a job containing all jobs to execute.
-        Each job when execute converts a media file from one file format
-        to another.
+        Creates a job to convert all supported media files. 
         @param: mediaDirectoryPath Path to media directory
         @param: videoFileExtensions List of video file extensions
         @param: imageFileExtensions List of audio file extensions
-        @return: a Job instance containing all jobs to execute
+        @return: a Job instance containing all jobs to execute.
         """
         filenames = list()
         selectedVideoFilenames = list()
