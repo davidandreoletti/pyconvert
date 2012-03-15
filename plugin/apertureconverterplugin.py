@@ -331,7 +331,7 @@ class ApertureConverterPlugin(ConverterPlugin):
                     handbrakeCLIBuilder = HandbrakeCLGenerator.createFrom(sourceMediaFile=sourceMediaFile, destinationMediaFile=hanbrakeDestinationMediaFile)
                     handbrakeCLIBuilder.addLooseAnamorphic()
                     handbrakeCLIBuilder.addVerbosity()
-                    handbrakeCLIRunner = CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    handbrakeCLIRunner = CLRunner()
 
                     masterJob.addJob(ConverterJob(clibuilder=handbrakeCLIBuilder, clirunner=handbrakeCLIRunner))
                     loggerJobCreationRuntime.info("Handbrake cl:" + str(handbrakeCLIBuilder.tocl()))
@@ -348,7 +348,7 @@ class ApertureConverterPlugin(ConverterPlugin):
                     ffmpegDestinationMediaFile.setAudioStreams(destinationFFMPEGAudioStreams)
                     ffmpegCLIBuilder = FFMPEGCLGenerator.createFrom(sourceMediaFile=ffmpegSourceMediaFile, destinationMediaFile=ffmpegDestinationMediaFile)
                     ffmpegCLIBuilder.addOverwriteOutputFileWithoutAsking()
-                    ffmpegCLIRunner = CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    ffmpegCLIRunner = CLRunner()
                     loggerJobCreationRuntime.info("ffmpeg cl:" + str(handbrakeCLIBuilder.tocl()))
 
                     masterJob.addJob(ConverterJob(clibuilder=ffmpegCLIBuilder, clirunner=ffmpegCLIRunner))
@@ -466,8 +466,9 @@ class ApertureConverterPlugin(ConverterPlugin):
         loggerJobCreationRuntime.info("ffprobe cl:" + str(cl))
 
         # Run CL
-        clRunner = CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        clRunner.run(cl, shell=False)
+        # clRunner = CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        clRunner = CLRunner(shell=True)
+        clRunner.run(cl)
         ffprobeRawOutput = clRunner.stdout()
         loggerJobCreationRuntime.info("ffprobe raw output:" + str(ffprobeRawOutput))
         # Parse CL output
@@ -516,8 +517,8 @@ class ApertureConverterPlugin(ConverterPlugin):
             cl0 = identifyCLBuilder0.tocl()
             loggerJobCreationRuntime.info("identify cl:" + str(cl0))
 
-            clRunner0 = CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            clRunner0.run(cl0, shell=False)
+            clRunner0 = CLRunner(shell=True)
+            clRunner0.run(cl0)
             identifyCLRawOutput0 = clRunner0.stdout()
 
             identifyParser0 = IdentifyParser()
@@ -531,8 +532,8 @@ class ApertureConverterPlugin(ConverterPlugin):
             cl1=identifyCLBuilder1.tocl()
             loggerJobCreationRuntime.info("identify cl:" + str(cl1))
 
-            clRunner1=CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            clRunner1.run(cl1, shell=False)
+            clRunner1=CLRunner(shell=True)
+            clRunner1.run(cl1)
             identifyCLRawOutput1=clRunner1.stdout()
 
             identifyParser1 = IdentifyParser()
@@ -546,8 +547,8 @@ class ApertureConverterPlugin(ConverterPlugin):
             cl2=identifyCLBuilder2.tocl()
             loggerJobCreationRuntime.info("identify cl:" + str(cl2))
 
-            clRunner2=CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            clRunner2.run(cl2, shell=False)
+            clRunner2=CLRunner(shell=True)
+            clRunner2.run(cl2)
             identifyCLRawOutput2=clRunner2.stdout()
 
             identifyParser2 = IdentifyParser()
@@ -561,8 +562,8 @@ class ApertureConverterPlugin(ConverterPlugin):
             cl3=identifyCLBuilder3.tocl()
             loggerJobCreationRuntime.info("identify cl:" + str(cl3))
 
-            clRunner3=CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            clRunner3.run(cl3, shell=False)
+            clRunner3=CLRunner(shell=True)
+            clRunner3.run(cl3)
             identifyCLRawOutput3=clRunner3.stdout()
 
             identifyParser3 = IdentifyParser()
@@ -576,8 +577,8 @@ class ApertureConverterPlugin(ConverterPlugin):
             cl4=identifyCLBuilder4.tocl()
             loggerJobCreationRuntime.info("identify cl:" + str(cl4))
 
-            clRunner4=CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            clRunner4.run(cl4, shell=False)
+            clRunner4=CLRunner(shell=True)
+            clRunner4.run(cl4)
             identifyCLRawOutput4=clRunner4.stdout()
 
             identifyParser4 = IdentifyParser()
@@ -677,7 +678,7 @@ class ApertureConverterPlugin(ConverterPlugin):
                     destinationConvertImageStreams.append(destinationConvertImageStream)
                     convertDestinationMediaFile.setImageStreams(destinationConvertImageStreams)
                     convertCLIBuilder = ConvertCLGenerator.createResizeJobFrom(sourceMediaFile=convertSourceMediaFile, destinationMediaFile=convertDestinationMediaFile)
-                    convertCLIRunner = CLRunner(stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    convertCLIRunner = CLRunner(shell=True)
 
                     masterJob.addJob(ConverterJob(clibuilder=convertCLIBuilder, clirunner=convertCLIRunner))
                     loggerJobCreationRuntime.info("convert cl:" + str(convertCLIBuilder.tocl()))
