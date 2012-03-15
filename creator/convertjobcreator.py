@@ -2,6 +2,7 @@ import os
 from os.path import basename
 import subprocess
 import inspect
+import string
 
 from job.job import Job
 from mediafile.mediafile import MediaFile
@@ -43,6 +44,8 @@ class ConvertJobCreator(object):
                                          topdown=False):
             for name in files:
                 filename = os.path.join(root, name)
+                # Filename with spaces on Unix
+                filename = string.replace(filename, " ", "\ ")  
                 filenames.append(filename)
 
         # Filter based on several criteriae

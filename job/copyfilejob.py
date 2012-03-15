@@ -3,6 +3,7 @@ import shutil
 
 from job import Job
 from constant.constant import Constant
+import string
 
 loggerCLRunnerRuntime = Constant.getRuntimeLogger()
 
@@ -19,7 +20,11 @@ class CopyFileJob(Job):
         @param: destinationFilename Destination file to copy to
         """
         super(CopyFileJob, self).__init__()
+        # Filename with spaces on Unix
+        sourceFileName = string.replace(sourceFileName, "\ ", " ")  
         self._sourceFileName = sourceFileName
+        # Filename with spaces on Unix
+        destinationFileName = string.replace(destinationFileName, "\ ", " ")  
         self._destinationFileName = destinationFileName
 
     def execute(self):
