@@ -28,7 +28,7 @@ class Job(object):
                                     how the job must be executed
         """
         if not jobExecutionStrategy:
-            jobExecutionStrategy = JobExecutionStrategy.JobExecutionStrategy()
+            jobExecutionStrategy = JobExecutionStrategy()
             self._jobExecutionStrategy = jobExecutionStrategy
         else:
             self._jobExecutionStrategy = jobExecutionStrategy
@@ -222,4 +222,4 @@ class Job(object):
         """
         pass
 
-from jobexecutionstrategy import JobExecutionStrategy
+from jobexecutionstrategy.jobexecutionstrategy import JobExecutionStrategy
