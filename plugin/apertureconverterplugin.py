@@ -385,7 +385,10 @@ class ApertureConverterPlugin(ConverterPlugin):
             if len(numbers) == 1:
                 framerateMinValue = str(eval(numbers[0]))  # FIXME: Dangerous since input is not trusted. This must be sanitized.
             if len(numbers) == 2:
-                framerateMinValue = str(eval(str(float(numbers[0])) + "/" + str(float(numbers[1]))))  # FIXME: Dangerous since input is not trusted. This must be sanitized.
+                try:
+                    framerateMinValue = str(eval(str(float(numbers[0])) + "/" + str(float(numbers[1]))))  # FIXME: Dangerous since input is not trusted. This must be sanitized.
+                except ZeroDivisionError:
+                    framerateMinValue = str(0)
             else:
                 loggerJobCreationRuntime.error("Cannot convert " + str(framerateMin) + " into floating value")
 
