@@ -50,10 +50,8 @@ def main():
     masterJob = convertJobCreator.createJobFromMediaDirectory(options.mediaDirectoryPath,
                                                               videoFileExtensions,
                                                               imageFileExtensions)
-
     # Monitore jobs
     jobMonitor = JobMonitor()
-
     # Executes jobs
     jobExecutor = JobExecutor()
     jobExecutor.addJobMonitor(jobMonitor)
