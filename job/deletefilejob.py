@@ -18,8 +18,6 @@ class DeleteFileJob(Job):
         @param: filename File to delete
         """
         super(DeleteFileJob, self).__init__()
-        # Filename with spaces on Unix
-        filename = util.escapePathForOSIndependentShell(filename)
         self._filename = filename
 
     def execute(self):

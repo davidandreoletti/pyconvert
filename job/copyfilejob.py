@@ -20,11 +20,7 @@ class CopyFileJob(Job):
         @param: destinationFilename Destination file to copy to
         """
         super(CopyFileJob, self).__init__()
-        # Filename with spaces on Unix
-        sourceFileName = util.escapePathForOSIndependentShell(sourceFileName)
         self._sourceFileName = sourceFileName
-        # Filename with spaces on Unix
-        destinationFileName = util.escapePathForOSIndependentShell(destinationFileName)
         self._destinationFileName = destinationFileName
 
     def execute(self):
