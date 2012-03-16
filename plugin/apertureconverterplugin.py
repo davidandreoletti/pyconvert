@@ -62,7 +62,7 @@ from job.deletefilejob import DeleteFileJob
 from job.copyfilejob import CopyFileJob
 from job.onsuccessonlyconverterjob import OnSuccessOnlyConverterJob
 from plugin.converterplugin import ConverterPlugin
-
+from util import util
 
 class ApertureConverterPlugin(ConverterPlugin):
 
@@ -460,7 +460,7 @@ class ApertureConverterPlugin(ConverterPlugin):
         loggerJobCreationRuntime.info("Processing :" + str(filename))
         # Prepare CL
         ffprobeCLBuilder = FFPROBECLGenerator()
-        ffprobeCLBuilder.addInputFile(filename)
+        ffprobeCLBuilder.addInputFile(util.escapePathForOSIndependentShell(filename))
         ffprobeCLBuilder.addShowStreams()
         cl = ffprobeCLBuilder.tocl()
         loggerJobCreationRuntime.info("ffprobe cl:" + str(cl))
@@ -511,7 +511,7 @@ class ApertureConverterPlugin(ConverterPlugin):
 
             # Get Image width
             identifyCLBuilder0 = IdentifyCLGenerator()
-            identifyCLBuilder0.addInputFile(filename)
+            identifyCLBuilder0.addInputFile(util.escapePathForOSIndependentShell(filename))
             identifyCLBuilder0.addFormatOption()
             identifyCLBuilder0.addFormatWidthOption()
             cl0 = identifyCLBuilder0.tocl()
@@ -526,7 +526,7 @@ class ApertureConverterPlugin(ConverterPlugin):
 
             # Get Image height
             identifyCLBuilder1 = IdentifyCLGenerator()
-            identifyCLBuilder1.addInputFile(filename)
+            identifyCLBuilder1.addInputFile(util.escapePathForOSIndependentShell(filename))
             identifyCLBuilder1.addFormatOption()
             identifyCLBuilder1.addFormatHeightOption()
             cl1=identifyCLBuilder1.tocl()
@@ -541,7 +541,7 @@ class ApertureConverterPlugin(ConverterPlugin):
 
             # Get Image DPI X
             identifyCLBuilder2 = IdentifyCLGenerator()
-            identifyCLBuilder2.addInputFile(filename)
+            identifyCLBuilder2.addInputFile(util.escapePathForOSIndependentShell(filename))
             identifyCLBuilder2.addFormatOption()
             identifyCLBuilder2.addFormatHorizontalDPIOption()
             cl2=identifyCLBuilder2.tocl()
@@ -556,7 +556,7 @@ class ApertureConverterPlugin(ConverterPlugin):
 
             # Get Image DPI Y
             identifyCLBuilder3 = IdentifyCLGenerator()
-            identifyCLBuilder3.addInputFile(filename)
+            identifyCLBuilder3.addInputFile(util.escapePathForOSIndependentShell(filename))
             identifyCLBuilder3.addFormatOption()
             identifyCLBuilder3.addFormatVerticalDPIOption()
             cl3=identifyCLBuilder3.tocl()
@@ -571,7 +571,7 @@ class ApertureConverterPlugin(ConverterPlugin):
 
             # Get Image Quality
             identifyCLBuilder4 = IdentifyCLGenerator()
-            identifyCLBuilder4.addInputFile(filename)
+            identifyCLBuilder4.addInputFile(util.escapePathForOSIndependentShell(filename))
             identifyCLBuilder4.addFormatOption()
             identifyCLBuilder4.addFormatQualityOption()
             cl4=identifyCLBuilder4.tocl()
