@@ -671,9 +671,9 @@ class ApertureConverterPlugin(ConverterPlugin):
 
                     # Convert with ImageMagick's mogrity tool as Job #2
                     convertSourceMediaFile = MediaFile()
-                    convertSourceMediaFile.setFileName(destinationBackupFileName)
+                    convertSourceMediaFile.setFileName(util.escapePathForOSIndependentShell(destinationBackupFileName))
                     convertDestinationFileName = sourceMediaFile.getFileName()
-                    convertDestinationMediaFile.setFileName(convertDestinationFileName)
+                    convertDestinationMediaFile.setFileName(util.escapePathForOSIndependentShell(convertDestinationFileName))
                     destinationConvertImageStream = ImageStream(filename=convertDestinationFileName, width=dIWidth, height=sIHeight, quality=dIQuality, densityX=dIDPIX, densityY=dIDPIY)
                     destinationConvertImageStreams.append(destinationConvertImageStream)
                     convertDestinationMediaFile.setImageStreams(destinationConvertImageStreams)
