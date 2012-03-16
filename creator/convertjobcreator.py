@@ -44,8 +44,6 @@ class ConvertJobCreator(object):
                                          topdown=False):
             for name in files:
                 filename = os.path.join(root, name)
-                # Filename with spaces on Unix
-                filename = string.replace(filename, " ", "\ ")  
                 filenames.append(filename)
 
         # Filter based on several criteriae
