@@ -3,6 +3,7 @@ import os.path
 import logging
 import sys
 import traceback
+import copy
 
 from constant.constant import Constant
 
@@ -98,6 +99,7 @@ class ApertureConverterPlugin(ConverterPlugin):
         sourceVideoMediaStreams = sourceMediaFile.getVideoStreams()
         sourceAudioMediaStreams = sourceMediaFile.getAudioStreams()
         masterJob = None
+        hanbrakeSourceMediaFile = copy.deepcopy(sourceMediaFile)
         hanbrakeDestinationMediaFile = MediaFile()
         ffmpegSourceMediaFile = MediaFile()
         ffmpegDestinationMediaFile = MediaFile()
@@ -313,6 +315,7 @@ class ApertureConverterPlugin(ConverterPlugin):
                 try:
                     masterJob = OnSuccessOnlyConverterJob()
                     # Convert with HandBrake as Job #1
+                    hanbrakeSourceMediaFile.setFileName(util.escapePathForOSIndependentShell(hanbrakeSourceMediaFile.getFileName()))
                     destinationHandbrakeVideoStream = VideoStream(codecName=dVHandbrakeCodecName,
                                                                   streamIndex=dVHandbrakeStreamIndex,
                                                                   framerateMin=sVFramerateMin,
@@ -327,11 +330,11 @@ class ApertureConverterPlugin(ConverterPlugin):
                     hanbrakeDestinationMediaFile.setVideoStreams(destinationHandbrakeVideoStreams)
                     hanbrakeDestinationMediaFile.setAudioStreams(destinationHandbrakeAudioStreams)
                     handbrakeDestinationFileName = sourceMediaFile.getFileName() + ".tmp." + str(hanbrakeDestinationMediaFile.getContainerType())
-                    hanbrakeDestinationMediaFile.setFileName(handbrakeDestinationFileName)
-                    handbrakeCLIBuilder = HandbrakeCLGenerator.createFrom(sourceMediaFile=sourceMediaFile, destinationMediaFile=hanbrakeDestinationMediaFile)
+                    hanbrakeDestinationMediaFile.setFileName(util.escapePathForOSIndependentShell(handbrakeDestinationFileName))
+                    handbrakeCLIBuilder = HandbrakeCLGenerator.createFrom(sourceMediaFile=hanbrakeSourceMediaFile, destinationMediaFile=hanbrakeDestinationMediaFile)
                     handbrakeCLIBuilder.addLooseAnamorphic()
                     handbrakeCLIBuilder.addVerbosity()
-                    handbrakeCLIRunner = CLRunner()
+                    handbrakeCLIRunner = CLRunner(shell=True)
 
                     masterJob.addJob(ConverterJob(clibuilder=handbrakeCLIBuilder, clirunner=handbrakeCLIRunner))
                     loggerJobCreationRuntime.info("Handbrake cl:" + str(handbrakeCLIBuilder.tocl()))
@@ -341,15 +344,15 @@ class ApertureConverterPlugin(ConverterPlugin):
                     destinationFFMPEGAudioStream = AudioStream(codecName=dAFFMPEGCodecName)
 
                     ffmpegSourceMediaFile.setFileName(hanbrakeDestinationMediaFile.getFileName())
-                    ffmpegDestinationMediaFile.setFileName(sourceMediaFile.getFileName())
+                    ffmpegDestinationMediaFile.setFileName(util.escapePathForOSIndependentShell(sourceMediaFile.getFileName()))
                     destinationFFMPEGVideoStreams.append(destinationFFMPEGVideoStream)
                     destinationFFMPEGAudioStreams.append(destinationFFMPEGAudioStream)
                     ffmpegDestinationMediaFile.setVideoStreams(destinationFFMPEGVideoStreams)
                     ffmpegDestinationMediaFile.setAudioStreams(destinationFFMPEGAudioStreams)
                     ffmpegCLIBuilder = FFMPEGCLGenerator.createFrom(sourceMediaFile=ffmpegSourceMediaFile, destinationMediaFile=ffmpegDestinationMediaFile)
                     ffmpegCLIBuilder.addOverwriteOutputFileWithoutAsking()
-                    ffmpegCLIRunner = CLRunner()
-                    loggerJobCreationRuntime.info("ffmpeg cl:" + str(handbrakeCLIBuilder.tocl()))
+                    ffmpegCLIRunner = CLRunner(shell=True)
+                    loggerJobCreationRuntime.info("ffmpeg cl:" + str(ffmpegCLIBuilder.tocl()))
 
                     masterJob.addJob(ConverterJob(clibuilder=ffmpegCLIBuilder, clirunner=ffmpegCLIRunner))
                     # Delete temporary file as Job #3
