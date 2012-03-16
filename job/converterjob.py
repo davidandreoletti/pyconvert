@@ -31,7 +31,7 @@ class ConverterJob(Job):
             self._status = Job.JobStatus.COMPLETED
         else:
             self._status = Job.JobStatus.FAILED
-            self.didExecute()
+        self.didExecute()
 
     def willExecute(self):
         loggerCLRunnerRuntime.info("Executing:" + str(self._clibuilder.tocl()))
