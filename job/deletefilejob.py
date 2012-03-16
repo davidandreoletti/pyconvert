@@ -2,7 +2,7 @@ import os
 
 from job import Job
 from constant.constant import Constant
-import string
+from util import util
 
 loggerCLRunnerRuntime = Constant.getRuntimeLogger()
 
@@ -18,8 +18,8 @@ class DeleteFileJob(Job):
         @param: filename File to delete
         """
         super(DeleteFileJob, self).__init__()
-       # Filename with spaces on Unix
-        filename = string.replace(filename, "\ ", " ")  
+        # Filename with spaces on Unix
+        filename = util.escapePathForOSIndependentShell(filename)
         self._filename = filename
 
     def execute(self):
