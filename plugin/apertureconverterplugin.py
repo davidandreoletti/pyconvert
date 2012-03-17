@@ -218,7 +218,7 @@ class ApertureConverterPlugin(ConverterPlugin):
                 skippedJobCreation = False
 
             # iPhone 3GS (NOT MBP 2007 iSight)
-            elif(sVWidth == 480 and sVHeight == 360 and
+            elif(((sVWidth == 640 and sVHeight == 480) or (sVWidth == 480 and sVHeight == 360)) and
                  sVCodecName == "h264" and sVCodecTag == "0x31637661" and
                  sACodecName == "aac" and sACodecTag == "0x6134706d" and
                  sABitPerSample == "0"):
@@ -652,7 +652,8 @@ class ApertureConverterPlugin(ConverterPlugin):
                 loggerCameraSourceType = "Unknown1"
                 skippedJobCreation = False
             # Unknown2
-            elif(sIWidth <= 2480 and sIHeight <= 3508):
+            elif((sIWidth <= 2480 and sIHeight <= 3508) or
+                (sIDPIX <=300 and sIDPIY <=300)):
                 # No need to re-encode
                 skippedJobCreation = True
                 skippedReason = "No need to re-encode"
