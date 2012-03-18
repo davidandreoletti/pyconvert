@@ -10,6 +10,17 @@ MOTIVATION:
 
 Save disk space
 
+INSTALLATION:
+=============
+
+Install the latest sources:
+
+easy_install https://github.com/davidandreoletti/pyconvert/zipball/master
+
+Install a specific release (eg: v0.0.1):
+
+easy_install https://github.com/davidandreoletti/pyconvert/zipball/v0.0.1
+
 DOCUMENTATION
 =============
 
