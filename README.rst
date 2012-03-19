@@ -13,13 +13,46 @@ Save disk space
 INSTALLATION:
 =============
 
-Install the latest sources:
+Installation for end user:
+---------------------------
 
-easy_install https://github.com/davidandreoletti/pyconvert/zipball/master
+Step: Download sources
 
-Install a specific release (eg: v0.0.1):
+``curl -L https://github.com/davidandreoletti/pyconvert/tarball/v0.0.1 2>/dev/null > sources.tar.gz``
 
-easy_install https://github.com/davidandreoletti/pyconvert/zipball/v0.0.1
+``mkdir pyconvert-0.0.1; tar -C pyconvert-0.0.1 --strip-components 1 -xzvf sources.tar.gz``
+
+``cd pyconvert-0.0.1``
+
+Step: Install dependencies
+
+``python setup.py install``
+
+Step: Build application
+
+``./make.sh``
+
+Step: Run application
+
+``./pyconvert-app -h``
+
+Installation for developer:
+---------------------------
+
+Step: Checkout project source and move into project directory
+
+``git clone git://github.com/davidandreoletti/pyconvert.git; cd pyconvert``
+
+Step: Install project for development
+
+``python setup.py develop``
+
+Step: Run application
+
+``python main.py -h``
+
+DONE :)
+
 
 DOCUMENTATION
 =============
