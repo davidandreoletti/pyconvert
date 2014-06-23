@@ -67,7 +67,7 @@ from util import util
 
 class ApertureConverterPlugin(ConverterPlugin):
 
-    SUPPORTED_FILE_EXTENSION = ["avi", "mov", "jpeg", "jpg"]
+    SUPPORTED_FILE_EXTENSION = ["avi", "mov", "mp4", "jpeg", "jpg"]
     """
     File extension supported by this plugin
     """
@@ -199,6 +199,27 @@ class ApertureConverterPlugin(ConverterPlugin):
                 loggerCameraSourceType = "Nikon D3100"
                 skippedJobCreation = False
 
+            # GoPro Silver 3+ 
+            elif(sVCodecName == "h264" and sVCodecTag == "0x31637661" and
+                sACodecName == "aac" and sACodecTag == "0x6134706d"):
+                evfH264 = HandbrakeCLGenerator.ENCODER_VIDEO_FORMAT_H264
+                dVHandbrakeCodecName = evfH264
+                dVHandbrakeStreamIndex = "0"
+                dVHandbrakeQuality = "23"
+
+		eafFAAC = HandbrakeCLGenerator.ENCODER_AUDIO_FORMAT_FAAC
+                dAHandbrakeCodecName = eafFAAC
+
+                cfMP4 = HandbrakeCLGenerator.CONTAINER_FORMAT_MP4
+                hanbrakeDestinationMediaFile.setContainerType(cfMP4)
+
+                dVFFMPEGCodecName = FFMPEGCLGenerator.ENCODER_VIDEO_FORMAT_COPY
+                dAFFMPEGCodecName = FFMPEGCLGenerator.ENCODER_AUDIO_FORMAT_COPY
+
+                loggerCameraSourceType = "GoPro 3+ Silver"
+                skippedJobCreation = False
+
+ 
             # Canon Nexus 700
             elif(sVWidth == 320 and sVHeight == 240 and
                 sVCodecName == "mjpeg" and sVCodecTag == "0x47504a4d" and
@@ -397,7 +418,7 @@ class ApertureConverterPlugin(ConverterPlugin):
 
             # Restrict precision to 3 decimal digits maximun
             framerateIdentified = False
-            frameratePotentialValues = ["29.97", "25", "24", "23.976", "15", "12", "10", "5"]
+            frameratePotentialValues = ["119.88", "59.94", "29.97", "25", "24", "23.976", "15", "12", "10", "5"]
             framerateIndex = 0
             countFrameratePotentialValues = len(frameratePotentialValues)
             while not framerateIdentified and framerateIndex < countFrameratePotentialValues:
@@ -487,9 +508,10 @@ class ApertureConverterPlugin(ConverterPlugin):
                 mediaStream = None
                 if stream["codec_type"] in "video":
                     mediaStream = ApertureConverterPlugin.createVideoStream(d=stream)
+                    mediaStreams.append(mediaStream)
                 elif stream["codec_type"] in "audio":
                     mediaStream = ApertureConverterPlugin.createAudioStream(d=stream)
-                mediaStreams.append(mediaStream)
+                    mediaStreams.append(mediaStream)
 
         streamsMediaObjects = dict(video=dict(), audio=dict())
         for i in range(0, len(mediaStreams)):
@@ -650,6 +672,12 @@ class ApertureConverterPlugin(ConverterPlugin):
                     dIWidth=2480
                 dIQuality=95
                 loggerCameraSourceType = "Unknown1"
+                skippedJobCreation = False
+            # GoPro 3+ Silver - 10MP Wide Mode
+            elif(sIDPIX == 72 and sIDPIY == 72 and
+               sIWidth == 3680 and sIHeight == 2760):
+                dIQuality=92
+                loggerCameraSourceType = "GoPro 3+ Silver - 10MP Wide Mode"
                 skippedJobCreation = False
             # Unknown2
             elif((sIWidth <= 2480 and sIHeight <= 3508) or

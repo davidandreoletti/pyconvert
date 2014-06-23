@@ -45,7 +45,7 @@ def main():
 
     # Create jobs
     convertJobCreator = ConvertJobCreator()
-    videoFileExtensions = ["avi", "mov"]
+    videoFileExtensions = ["avi", "mov", "mp4"]
     imageFileExtensions = ["jpg", "png"]
     masterJob = convertJobCreator.createJobFromMediaDirectory(options.mediaDirectoryPath,
                                                               videoFileExtensions,
